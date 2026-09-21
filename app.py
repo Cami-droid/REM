@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
+from plotly.colors import sample_colorscale
 
 DATA = Path(__file__).parent / "data"
 KEY = ["relevamiento", "variable", "unidad_norm", "periodo_tipo", "fecha_objetivo"]
@@ -39,6 +40,16 @@ def fmt_obj(ts, tipo):
     if tipo == "trim":
         return f"{ts.year}-T{(ts.month - 1) // 3 + 1}"
     return f"{ts:%Y-%m}"
+
+
+def pick_reps(opts, k):
+    """k relevamientos por año (k=1: dic; 2: jun/dic; 4: mar/jun/sep/dic), el mas cercano disponible; mas el ultimo."""
+    targets = {1: [12], 2: [6, 12], 4: [3, 6, 9, 12]}[k]
+    by_year = {}
+    for r in opts:
+        by_year.setdefault(int(r[:4]), []).append((int(r[5:7]), r))
+    out = {min(lst, key=lambda x: abs(x[0] - t))[1] for lst in by_year.values() for t in targets}
+    return sorted(out | {opts[-1]})
 
 
 try:
@@ -109,18 +120,30 @@ with tab1:
                           xaxis_title="Relevamiento", yaxis_title=unidad)
     else:
         opts = sorted(view["relevamiento"].unique())
-        default = sorted({opts[i] for i in np.linspace(0, len(opts) - 1, min(6, len(opts))).astype(int)})
-        sel = st.multiselect("Relevamientos a superponer", opts, default=default, key=f"sel|{ctx}")
-        realr = (base.dropna(subset=["real"]).drop_duplicates("fecha_objetivo").sort_values("fecha_objetivo"))
+        AUTO = {"2 por año": 2, "1 por año": 1, "4 por año": 4, "Manual": 0}
+        auto = st.radio("Selección automática de relevamientos", list(AUTO), horizontal=True,
+                        help="Elige relevamientos representativos de cada año (el más cercano a jun/dic, etc.) "
+                             "y el último disponible. Después se puede ajustar a mano.")
+        k = AUTO[auto]
+        default = (pick_reps(opts, k) if k else
+                   sorted({opts[i] for i in np.linspace(0, len(opts) - 1, min(5, len(opts))).astype(int)}))
+        sel = st.multiselect("Relevamientos a superponer", opts, default=default, key=f"sel|{ctx}|{auto}")
+        if len(sel) > 20:
+            st.warning(f"{len(sel)} series superpuestas: el gráfico puede volverse ilegible. Probá con menos.")
+        xf = (lambda s_: s_.dt.year) if tipo == "anio" else (lambda s_: s_)  # anual: eje en años, no en 31-dic
+        realr = base.dropna(subset=["real"]).drop_duplicates("fecha_objetivo").sort_values("fecha_objetivo")
         if not realr.empty:
-            fig.add_trace(go.Scatter(x=realr["fecha_objetivo"], y=realr["real"], mode="lines+markers", name="Real",
-                                     line=dict(color="black", width=3)))
-        for r in sel:
+            fig.add_trace(go.Scatter(x=xf(realr["fecha_objetivo"]), y=realr["real"], mode="lines+markers",
+                                     name="Real", line=dict(color="black", width=3)))
+        cols = sample_colorscale("Viridis", [i / max(len(sel) - 1, 1) for i in range(len(sel))])
+        for r, c in zip(sorted(sel), cols):  # color: relevamientos viejos (violeta) -> recientes (amarillo)
             d = view[view["relevamiento"] == r].sort_values("fecha_objetivo")
-            fig.add_trace(go.Scatter(x=d["fecha_objetivo"], y=d["mediana"], mode="lines+markers",
-                                     name=f"REM {r}", line=dict(width=1.5), marker=dict(size=4)))
+            fig.add_trace(go.Scatter(x=xf(d["fecha_objetivo"]), y=d["mediana"], mode="lines+markers",
+                                     name=f"REM {r}", line=dict(width=1.8, color=c), marker=dict(size=5)))
         fig.update_layout(title="Trayectorias proyectadas (mediana) vs. real",
                           xaxis_title="Período objetivo", yaxis_title=unidad)
+        if tipo == "anio":
+            fig.update_xaxes(dtick=1)
     fig.update_layout(hovermode="x unified", legend=dict(orientation="h", y=-0.2), height=520)
     st.plotly_chart(fig, width="stretch")
 
