@@ -3,6 +3,7 @@ NUCLEO_NAC_IDX,148.3_INUCLEONAL_DICI_M_19,IPC. Núcleo. Nacional. Base dic 2016.
 NG_GBA_IDX,103.1_I2N_2016_M_19,IPC-GBA. Nivel General. Base abr 2016. Mensual | Índice de Precios al Consumidor GBA (IPC-GBA). Base diciembre 2016.,Índice Dic-2016=100,M,2016-04-30,2026-08-31,125,2026-09-21
 NUCLEO_GBA_IDX,103.1_I2N_2016_M_15,IPC-GBA. Núcleo. Base abr 2016. Mensual | Índice de Precios al Consumidor GBA (IPC-GBA). Base diciembre 2016.,Índice Dic-2016=100,M,2016-04-30,2026-08-31,125,2026-09-21
 PIB_ORIG,4.2_OGP_2004_T_17,"PIB a precios de comprador, en millones de pesos de 2004 y Trimestral. | Oferta y Demanda Globales. Base 2004",Millones de pesos a precios de 2004,Q,2014-03-31,2026-06-30,50,2026-09-21
+PIB_SA,3.2_OGP_D_2004_T_17,"Oferta global total a precios de comprador, en millones de pesos de 2004 y Anual. | Oferta y Demanda Globales. Datos desestacionalizados. Base 2004",Millones de pesos a precios de 2004,Q,2014-03-31,2026-06-30,50,2026-09-21
 DESOCUPACION,45.2_ECTDT_0_T_33,Tasa de desempleo total. En porcentaje. | Principales variables ocupacionales. EPH continua. Desempleo,Porcentaje,Q,2014-03-31,2026-06-30,48,2026-09-21
 EXPORTACIONES,74.3_IET_0_M_16,Exportaciones totales. En millones de dólares. | Intercambio Comercial Argentino,Millones de dólares,M,2014-01-31,2026-07-31,151,2026-09-21
 IMPORTACIONES,74.3_IIT_0_M_25,Importaciones totales. En millones de dólares. | Intercambio Comercial Argentino,Millones de dólares,M,2014-01-31,2026-07-31,151,2026-09-21
