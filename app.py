@@ -149,7 +149,7 @@ if "variable" not in st.session_state and qp.get("v") in variables:
     st.session_state["variable"] = qp["v"]
 variable = st.sidebar.selectbox("Variable", variables, key="variable")
 sv = LONG[LONG["variable"] == variable]
-unidades = sorted(sv["unidad_norm"].unique())
+unidades = sv["unidad_norm"].value_counts().index.tolist()  # la unidad con más datos primero (default)
 if f"unidad|{variable}" not in st.session_state and qp.get("u") in unidades:
     st.session_state[f"unidad|{variable}"] = qp["u"]
 unidad = st.sidebar.selectbox("Unidad", unidades, key=f"unidad|{variable}")
