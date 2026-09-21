@@ -1,0 +1,1281 @@
+
+=== rem_2016-06.xlsx -> relevamiento 2016-06
+  IPC_NG_GBA                  10 filas
+  IPC_NG_NAC                  10 filas
+  TASA_LEBAC35                 8 filas
+  TC_NOMINAL                   8 filas
+  PIB                          4 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+
+=== rem_2016-07.xlsx -> relevamiento 2016-07
+  IPC_NG_GBA                  10 filas
+  IPC_NG_NAC                  10 filas
+  TASA_LEBAC35                 9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          4 filas
+
+=== rem_2016-08.xlsx -> relevamiento 2016-08
+  IPC_NG_GBA                  10 filas
+  IPC_NUCLEO_GBA              10 filas
+  IPC_NG_NAC                  10 filas
+  TASA_LEBAC35                 9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          4 filas
+
+=== rem_2016-09.xlsx -> relevamiento 2016-09
+  IPC_NG_GBA                  10 filas
+  IPC_NUCLEO_GBA              10 filas
+  IPC_NG_NAC                  10 filas
+  TASA_LEBAC35                 9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          4 filas
+
+=== rem_2016-10.xlsx -> relevamiento 2016-10
+  IPC_NG_GBA                  12 filas
+  IPC_NUCLEO_GBA              12 filas
+  IPC_NG_NAC                  12 filas
+  TASA_LEBAC35                 2 filas
+  TASA_PASE7                   7 filas
+  TC_NOMINAL                  10 filas
+  RESULTADO_PRIMARIO_SPNF      3 filas
+  PIB                          6 filas
+
+=== rem_2016-11.xlsx -> relevamiento 2016-11
+  IPC_NG_GBA                  12 filas
+  IPC_NUCLEO_GBA              12 filas
+  IPC_NG_NAC                  12 filas
+  TASA_LEBAC35                 1 filas
+  TASA_PASE7                   8 filas
+  TC_NOMINAL                  10 filas
+  RESULTADO_PRIMARIO_SPNF      3 filas
+  PIB                          6 filas
+
+=== rem_2016-12.xlsx -> relevamiento 2016-12
+  IPC_NG_GBA                  11 filas
+  IPC_NUCLEO_GBA              11 filas
+  IPC_NG_NAC                  11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2017-01.xlsx -> relevamiento 2017-01
+  IPC_NG_GBA                  11 filas
+  IPC_NUCLEO_GBA              11 filas
+  IPC_NG_NAC                  11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2017-02.xlsx -> relevamiento 2017-02
+  IPC_NG_GBA                  11 filas
+  IPC_NUCLEO_GBA              11 filas
+  IPC_NG_NAC                  11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2017-03.xlsx -> relevamiento 2017-03
+  IPC_NG_GBA                  11 filas
+  IPC_NUCLEO_GBA              11 filas
+  IPC_NG_NAC                  11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2017-04.xlsx -> relevamiento 2017-04
+  IPC_NG_GBA                  11 filas
+  IPC_NUCLEO_GBA              11 filas
+  IPC_NG_NAC                  11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2017-05.xlsx -> relevamiento 2017-05
+  IPC_NG_GBA                  11 filas
+  IPC_NUCLEO_GBA              11 filas
+  IPC_NG_NAC                  11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2017-06.xlsx -> relevamiento 2017-06
+  IPC_NG_GBA                  11 filas
+  IPC_NUCLEO_GBA              11 filas
+  IPC_NG_NAC                  11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2017-07.xlsx -> relevamiento 2017-07
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  IPC_NG_GBA                   6 filas
+  IPC_NUCLEO_GBA               6 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2017-08.xlsx -> relevamiento 2017-08
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  IPC_NG_GBA                   5 filas
+  IPC_NUCLEO_GBA               5 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2017-09.xlsx -> relevamiento 2017-09
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  IPC_NG_GBA                   4 filas
+  IPC_NUCLEO_GBA               4 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2017-10.xlsx -> relevamiento 2017-10
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  IPC_NG_GBA                   3 filas
+  IPC_NUCLEO_GBA               3 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2017-11.xlsx -> relevamiento 2017-11
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  IPC_NG_GBA                   2 filas
+  IPC_NUCLEO_GBA               2 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2017-12.xlsx -> relevamiento 2017-12
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2018-01.xlsx -> relevamiento 2018-01
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2018-02.xlsx -> relevamiento 2018-02
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2018-03.xlsx -> relevamiento 2018-03
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2018-04.xlsx -> relevamiento 2018-04
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2018-05.xlsx -> relevamiento 2018-05
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2018-06.xlsx -> relevamiento 2018-06
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2018-07.xlsx -> relevamiento 2018-07
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_PASE7                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2018-08.xlsx -> relevamiento 2018-08
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2018-09.xlsx -> relevamiento 2018-09
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2018-10.xlsx -> relevamiento 2018-10
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2018-11.xlsx -> relevamiento 2018-11
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2018-12.xlsx -> relevamiento 2018-12
+  IPC_NG_NAC                  11 filas
+  IPC_NUCLEO_NAC              11 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2019-01.xlsx -> relevamiento 2019-01
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2019-02.xlsx -> relevamiento 2019-02
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          5 filas
+
+=== rem_2019-03.xlsx -> relevamiento 2019-03
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2019-04.xlsx -> relevamiento 2019-04
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2019-05.xlsx -> relevamiento 2019-05
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2019-06.xlsx -> relevamiento 2019-06
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2019-07.xlsx -> relevamiento 2019-07
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2019-08.xlsx -> relevamiento 2019-08
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2019-09.xlsx -> relevamiento 2019-09
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2019-10.xlsx -> relevamiento 2019-10
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2019-11.xlsx -> relevamiento 2019-11
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2019-12.xlsx -> relevamiento 2019-12
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_LELIQ                   9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2020-01.xlsx -> relevamiento 2020-01
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2020-02.xlsx -> relevamiento 2020-02
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2020-03.xlsx -> relevamiento 2020-03
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2020-04.xlsx -> relevamiento 2020-04
+  hojas ignoradas: ['Resultados TOP10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2020-05.xlsx -> relevamiento 2020-05
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2020-06.xlsx -> relevamiento 2020-06
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2020-07.xlsx -> relevamiento 2020-07
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2020-08.xlsx -> relevamiento 2020-08
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2020-09.xlsx -> relevamiento 2020-09
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2020-10.xlsx -> relevamiento 2020-10
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2020-11.xlsx -> relevamiento 2020-11
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  PIB                          6 filas
+
+=== rem_2020-12.xlsx -> relevamiento 2020-12
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2021-01.xlsx -> relevamiento 2021-01
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2021-02.xlsx -> relevamiento 2021-02
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2021-03.xlsx -> relevamiento 2021-03
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2021-04.xlsx -> relevamiento 2021-04
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2021-05.xlsx -> relevamiento 2021-05
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2021-06.xlsx -> relevamiento 2021-06
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2021-07.xlsx -> relevamiento 2021-07
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2021-08.xlsx -> relevamiento 2021-08
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2021-09.xlsx -> relevamiento 2021-09
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2021-10.xlsx -> relevamiento 2021-10
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2021-11.xlsx -> relevamiento 2021-11
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2021-12.xlsx -> relevamiento 2021-12
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2022-01.xlsx -> relevamiento 2022-01
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2022-02.xlsx -> relevamiento 2022-02
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2022-03.xlsx -> relevamiento 2022-03
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2022-04.xlsx -> relevamiento 2022-04
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2022-05.xlsx -> relevamiento 2022-05
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2022-06.xlsx -> relevamiento 2022-06
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2022-07.xlsx -> relevamiento 2022-07
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2022-08.xlsx -> relevamiento 2022-08
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+rem_2022-09.xlsx: sin hoja 'Cuadros de resultados' (hojas: ['Resultados', 'Resultados TOP 10'])
+
+=== rem_2022-10.xlsx -> relevamiento 2022-10
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2022-11.xlsx -> relevamiento 2022-11
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2022-12.xlsx -> relevamiento 2022-12
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2023-01.xlsx -> relevamiento 2023-01
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2023-02.xlsx -> relevamiento 2023-02
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2023-03.xlsx -> relevamiento 2023-03
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2023-04.xlsx -> relevamiento 2023-04
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2023-05.xlsx -> relevamiento 2023-05
+  hojas ignoradas: ['Resultados TOP 10']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2023-06.xlsx -> relevamiento 2023-06
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2023-07.xlsx -> relevamiento 2023-07
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2023-08.xlsx -> relevamiento 2023-08
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2023-09.xlsx -> relevamiento 2023-09
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodológicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2023-10.xlsx -> relevamiento 2023-10
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodológicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2023-11.xlsx -> relevamiento 2023-11
+  hojas ignoradas: ['Resultados Top 10', 'Notas Metodológicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2023-12.xlsx -> relevamiento 2023-12
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodológicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2024-01.xlsx -> relevamiento 2024-01
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodológicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2024-02.xlsx -> relevamiento 2024-02
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodológicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2024-03.xlsx -> relevamiento 2024-03
+  hojas ignoradas: ['Resultados Top 10', 'Notas Metodológicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2024-04.xlsx -> relevamiento 2024-04
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodológicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2024-05.xlsx -> relevamiento 2024-05
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2024-06.xlsx -> relevamiento 2024-06
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2024-07.xlsx -> relevamiento 2024-07
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2024-08.xlsx -> relevamiento 2024-08
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2024-09.xlsx -> relevamiento 2024-09
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2024-10.xlsx -> relevamiento 2024-10
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2024-11.xlsx -> relevamiento 2024-11
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_BADLAR                  9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2024-12.xlsx -> relevamiento 2024-12
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2025-01.xlsx -> relevamiento 2025-01
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2025-02.xlsx -> relevamiento 2025-02
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2025-03.xlsx -> relevamiento 2025-03
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2025-04.xlsx -> relevamiento 2025-04
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2025-05.xlsx -> relevamiento 2025-05
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2025-06.xlsx -> relevamiento 2025-06
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2025-07.xlsx -> relevamiento 2025-07
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2025-08.xlsx -> relevamiento 2025-08
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2025-09.xlsx -> relevamiento 2025-09
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2025-10.xlsx -> relevamiento 2025-10
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2025-11.xlsx -> relevamiento 2025-11
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2025-12.xlsx -> relevamiento 2025-12
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2026-01.xlsx -> relevamiento 2026-01
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2026-02.xlsx -> relevamiento 2026-02
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2026-03.xlsx -> relevamiento 2026-03
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2026-04.xlsx -> relevamiento 2026-04
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2026-05.xlsx -> relevamiento 2026-05
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2026-06.xlsx -> relevamiento 2026-06
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2026-07.xlsx -> relevamiento 2026-07
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
+
+=== rem_2026-08.xlsx -> relevamiento 2026-08
+  hojas ignoradas: ['Resultados TOP 10', 'Notas Metodólogicas']
+  IPC_NG_NAC                  12 filas
+  IPC_NUCLEO_NAC              12 filas
+  TASA_TAMAR                   9 filas
+  TC_NOMINAL                   9 filas
+  EXPORTACIONES                9 filas
+  IMPORTACIONES                9 filas
+  RESULTADO_PRIMARIO_SPNF      2 filas
+  DESOCUPACION                 5 filas
+  PIB                          6 filas
