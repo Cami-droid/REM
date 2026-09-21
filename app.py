@@ -30,11 +30,17 @@ CONTACTO = "[@MTaurus_ok en X](https://x.com/MTaurus_ok)"   # para correcciones 
 WATERMARK = "MTaurus - X: MTaurus_ok"   # marca de agua en los gráficos ("" para desactivarla)
 FONT_BODY, FONT_DISPLAY = "Inter, system-ui, sans-serif", "Fraunces, Georgia, serif"
 SPLICE = "TASA_POLITICA_EMP"   # variable sintética: empalme de tasas de política (LEBAC 35d → Pase 7d → LELIQ)
-POL_PRIO = {"TASA_LELIQ": ("LELIQ", 0), "TASA_PASE7": ("Pase 7 días", 1), "TASA_LEBAC35": ("LEBAC 35 días", 2)}
-INSTR_COL = {"LEBAC 35 días": "#F2A93B", "Pase 7 días": "#2F80ED", "LELIQ": "#B77BFF"}
-INSTR_SYM = {"LEBAC 35 días": "diamond", "Pase 7 días": "circle", "LELIQ": "square"}
+SPLICE_REF = "TASA_REF_EMP"   # variable sintética: empalme de la tasa de interés de referencia del REM (BADLAR → TAMAR)
+# variable sintética -> {variable original: (etiqueta del instrumento, prioridad: menor = gana si hay solape)}
+SPLICES = {
+    SPLICE: {"TASA_LELIQ": ("LELIQ", 0), "TASA_PASE7": ("Pase 7 días", 1), "TASA_LEBAC35": ("LEBAC 35 días", 2)},
+    SPLICE_REF: {"TASA_TAMAR": ("TAMAR", 0), "TASA_BADLAR": ("BADLAR", 1)},
+}
+INSTR_COL = {"LEBAC 35 días": "#F2A93B", "Pase 7 días": "#2F80ED", "LELIQ": "#B77BFF", "BADLAR": "#F2A93B", "TAMAR": "#12A594"}
+INSTR_SYM = {"LEBAC 35 días": "diamond", "Pase 7 días": "circle", "LELIQ": "square", "BADLAR": "circle", "TAMAR": "square"}
 VAR_NAMES = {
     SPLICE: "Tasa de política monetaria (EMPALME)",
+    SPLICE_REF: "Tasa de interés de referencia del REM (EMPALME BADLAR → TAMAR)",
     "DESOCUPACION": "Desocupación", "EXPORTACIONES": "Exportaciones", "IMPORTACIONES": "Importaciones",
     "IPC_NG_GBA": "Inflación GBA (nivel general)", "IPC_NG_NAC": "Inflación nacional (nivel general)",
     "IPC_NUCLEO_GBA": "Inflación núcleo GBA", "IPC_NUCLEO_NAC": "Inflación núcleo nacional",
@@ -73,15 +79,20 @@ button[role="tab"] { font-weight: 600; }
 
 # ---------------------------------------------------------------- datos
 def add_splice(df):
-    """Agrega la variable sintética SPLICE: une LEBAC 35d, Pase 7d y LELIQ. Si una misma edición publicó dos instrumentos para el
-    mismo período objetivo, gana el más nuevo (LELIQ > Pase > LEBAC). Guarda el instrumento original en 'instrumento'."""
-    x = df[df["variable"].isin(POL_PRIO)].copy()
-    x["instrumento"] = x["variable"].map(lambda v: POL_PRIO[v][0])
-    x["_p"] = x["variable"].map(lambda v: POL_PRIO[v][1])
-    x = x.sort_values("_p").drop_duplicates(["relevamiento", "periodo_tipo", "fecha_objetivo"], keep="first")
-    x = x.drop(columns="_p")
-    x["variable"], x["unidad_norm"] = SPLICE, "TNA; %"
-    return pd.concat([df, x], ignore_index=True)
+    """Agrega las variables sintéticas de SPLICES. Si una misma edición publicó dos instrumentos para el mismo período objetivo, gana
+    el de menor prioridad numérica (el más nuevo). Guarda el instrumento original en 'instrumento'."""
+    parts = [df]
+    for name, members in SPLICES.items():
+        x = df[df["variable"].isin(members)].copy()
+        if x.empty:
+            continue
+        x["instrumento"] = x["variable"].map(lambda v: members[v][0])
+        x["_p"] = x["variable"].map(lambda v: members[v][1])
+        x = x.sort_values("_p").drop_duplicates(["relevamiento", "periodo_tipo", "fecha_objetivo"], keep="first")
+        x = x.drop(columns="_p")
+        x["variable"], x["unidad_norm"] = name, "TNA; %"
+        parts.append(x)
+    return pd.concat(parts, ignore_index=True)
 
 
 @st.cache_data(show_spinner=False)
@@ -305,16 +316,25 @@ st.markdown(
     unsafe_allow_html=True)
 st.markdown('<div class="rem-note">Proyecto exploratorio y divulgativo de MTaurus (@MTaurus_ok), hecho con ayuda de IA; puede contener errores. '
             'Leé la pestaña «Metodología y límites» antes de sacar conclusiones.</div>', unsafe_allow_html=True)
-if variable == SPLICE:
-    st.markdown(
-        '<div class="rem-callout rem-warn"><b>⚠️ Esto es un empalme armado por MTaurus, no una serie que publique el REM.</b> '
+SPLICE_NOTES = {
+    SPLICE: (
         'Combina tres tasas de política de distintas épocas: <b>LEBAC a 35 días</b> (relevamientos jun–nov 2016), '
         '<b>Pase a 7 días</b> (oct-2016 a jul-2018) y <b>LELIQ</b> (ago-2018 a dic-2019). En las ediciones de oct y nov de 2016 el REM '
         'publicó LEBAC y Pase a la vez, separadas por período objetivo: se usa LEBAC para el resto de 2016 y Pase de 2017 en adelante. '
         'Son instrumentos distintos, así que sus niveles no son estrictamente comparables entre sí; el real contra el que se mide es la '
-        'serie de tasa de política del BCRA, que también es un empalme. En los datos cargados no hay tasa de política posterior a '
-        'dic-2019: desde 2020 el REM releva la BADLAR y desde dic-2024 la TAMAR. Los colores y formas indican el instrumento.</div>',
-        unsafe_allow_html=True)
+        'serie de tasa de política del BCRA, que también es un empalme. El título de la LELIQ pasa de «LELIQ 7 días» a «LELIQ» en '
+        'nov-2018 y las planillas no aclaran si cambió el plazo. Según los títulos de las planillas, el REM no relevó tasa de política '
+        'después de dic-2019: desde 2020 releva la BADLAR y desde dic-2024 la TAMAR. Los colores y formas indican el instrumento.'),
+    SPLICE_REF: (
+        'Une la tasa de interés que releva el REM: <b>BADLAR</b> (relevamientos ene-2020 a nov-2024) y <b>TAMAR</b> (dic-2024 en '
+        'adelante). El cambio lo hizo el propio REM: desde dic-2024 releva la TAMAR como variable de tasa de interés y dejó de '
+        'preguntar por la BADLAR. Ambas son tasas de depósitos a plazo fijo, pero miden universos de depósitos distintos, así que sus '
+        'niveles pueden diferir. No es una tasa de política monetaria. Cada proyección se compara contra el real de su propia tasa '
+        '(promedio mensual de BADLAR o de TAMAR), por lo que el real también queda empalmado. Los colores y formas indican la tasa.'),
+}
+if variable in SPLICE_NOTES:
+    st.markdown('<div class="rem-callout rem-warn"><b>⚠️ Esto es un empalme armado por MTaurus, no una serie que publique el REM.</b> '
+                + SPLICE_NOTES[variable] + '</div>', unsafe_allow_html=True)
 if variable in APROX_TASA:
     st.caption("Ojo: el BCRA publica una sola serie de tasa de política (empalmada); es una aproximación para esta variable.")
 
@@ -719,8 +739,11 @@ fuentes originales antes de usarla o citarla.
 7. **El IPC nacional anterior a 2017** se excluye por defecto (el INDEC no publicaba nivel nacional).
 8. **Sin auditoría independiente:** el procesamiento de datos y los cálculos no fueron verificados por un especialista.
 9. **La «Tasa de política monetaria (EMPALME)» es un armado mío:** une LEBAC 35 días, Pase 7 días y LELIQ, que son instrumentos
-   distintos y no siempre comparables entre sí; el REM no la publica como una serie única. Mirar también cada tasa por separado.
-10. **No es asesoramiento financiero ni una opinión política.** Es una exploración de datos públicos.
+   distintos y no siempre comparables entre sí (y no está claro si el plazo de la LELIQ cambió en nov-2018); el REM no la publica como una
+   serie única. Mirar también cada tasa por separado.
+10. **La «Tasa de interés de referencia del REM (EMPALME BADLAR → TAMAR)» también es un armado mío:** BADLAR y TAMAR son tasas de
+   depósitos a plazo fijo de universos distintos; el REM hizo el cambio en dic-2024, pero no publica una serie única.
+11. **No es asesoramiento financiero ni una opinión política.** Es una exploración de datos públicos.
 """)
     if REPO_URL:
         st.markdown(f"Código y datos: {REPO_URL}")
