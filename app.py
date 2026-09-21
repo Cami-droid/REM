@@ -25,6 +25,9 @@ st.set_page_config(page_title="REM: proyecciones vs. realidad", page_icon="📈"
 # Paleta pensada para verse bien en modo claro y oscuro: azul = REM, rojo anaranjado = real, gris = ingenuo.
 REAL, REM_C, BAND = "#E8452C", "#2F80ED", "rgba(47,128,237,0.18)"
 NAIVE, BAR, ACCENT = "#8B95A5", "#F2A93B", "#12A594"
+REPO_URL = ""    # completar: link al repositorio (opcional)
+CONTACTO = "[@MTaurus_ok en X](https://x.com/MTaurus_ok)"   # para correcciones y comentarios
+WATERMARK = "MTaurus - X: MTaurus_ok"   # marca de agua en los gráficos ("" para desactivarla)
 FONT_BODY, FONT_DISPLAY = "Inter, system-ui, sans-serif", "Fraunces, Georgia, serif"
 VAR_NAMES = {
     "DESOCUPACION": "Desocupación", "EXPORTACIONES": "Exportaciones", "IMPORTACIONES": "Importaciones",
@@ -47,7 +50,8 @@ st.markdown("""
 h1, h2, h3 { font-family: var(--rem-display) !important; letter-spacing: -.01em; }
 .rem-kicker { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--rem-accent); font-weight: 600; }
 .rem-title { font-family: var(--rem-display); font-size: 2.6rem; line-height: 1.1; font-weight: 700; margin: .3rem 0 .4rem; }
-.rem-sub { opacity: .7; font-size: 1rem; margin-bottom: 1.2rem; }
+.rem-sub { opacity: .7; font-size: 1rem; margin-bottom: .6rem; }
+.rem-note { font-size: .85rem; opacity: .75; margin-bottom: 1.1rem; }
 [data-testid="stMetric"] { border: 1px solid var(--rem-line); background: var(--rem-soft); border-radius: 14px; padding: 14px 16px; }
 [data-testid="stMetricValue"] { font-family: var(--rem-display); font-weight: 700; }
 [data-testid="stMetricLabel"] p { font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; opacity: .75; }
@@ -169,6 +173,9 @@ def style(fig):
                       plot_bgcolor="rgba(0,0,0,0)", hoverlabel=dict(font_family=FONT_BODY))
     fig.update_xaxes(showgrid=False, zeroline=False, showline=True, linecolor=line, ticks="outside", tickcolor=line)
     fig.update_yaxes(gridcolor=grid, zeroline=False, showline=False)
+    if WATERMARK:
+        fig.add_annotation(text=WATERMARK, xref="paper", yref="paper", x=0.5, y=0.5, showarrow=False,
+                           font_size=34, opacity=0.16, textangle=-42)
     return fig
 
 
@@ -260,6 +267,8 @@ st.markdown(
     f'<div class="rem-title">{esc(VAR_NAMES.get(variable, variable))}</div>'
     f'<div class="rem-sub">{esc(unidad)} · {esc(TIPO_LABEL.get(tipo, tipo))} · relevamientos {esc(r0)} a {esc(r1)}</div>',
     unsafe_allow_html=True)
+st.markdown('<div class="rem-note">Proyecto exploratorio y divulgativo de MTaurus (@MTaurus_ok), hecho con ayuda de IA; puede contener errores. '
+            'Leé la pestaña «Metodología y límites» antes de sacar conclusiones.</div>', unsafe_allow_html=True)
 if variable in APROX_TASA:
     st.caption("Ojo: el BCRA publica una sola serie de tasa de política (empalmada); es una aproximación para esta variable.")
 
@@ -322,8 +331,8 @@ else:
                 help="Compara el error del REM con el de un pronóstico sin esfuerzo: repetir el último dato conocido. Menor a 1: el REM se equivoca menos que el ingenuo. Mayor a 1: no le gana.")
     st.markdown(f'<div class="rem-callout">{esc(frase(unidad, m["n"], h0, h1, m))}</div>', unsafe_allow_html=True)
 
-t_res, t_evo, t_hor, t_tie = st.tabs(["Resumen general", "Evolución de proyecciones", "Error por horizonte",
-                                       "Errores en el tiempo"])
+t_res, t_evo, t_hor, t_tie, t_met = st.tabs(["Resumen general", "Evolución de proyecciones", "Error por horizonte",
+                                              "Errores en el tiempo", "Metodología y límites"])
 
 # ---------------------------------------------------------------- resumen general (portada)
 with t_res:
@@ -611,7 +620,58 @@ with t_tie:
             cols_top.append("error_rel_pct")
         st.dataframe(top[cols_top].round(2), width="stretch", hide_index=True)
 
+# ---------------------------------------------------------------- metodologia y limites
+with t_met:
+    st.markdown("""
+### Quién hizo esto y cómo
+Esto lo armé yo, **MTaurus** ([@MTaurus_ok](https://x.com/MTaurus_ok) en X). La idea y el planteo son míos, pero **el código, los
+cálculos y buena parte de las explicaciones los hice con ayuda de una IA** (Claude, de Anthropic).
+
+Y lo digo sin vueltas: **soy un ladri en estadística** (un lego, ni cerca de ser estadístico). No tengo los conocimientos como para
+que todo esto me saliera de un saque yo solo, y no entiendo por mí mismo varias de las métricas que genera la herramienta (la cobertura,
+el RMSE, el cociente contra el pronóstico ingenuo…) ni podría validar solo toda la metodología. Lo comparto como **curiosidad y
+material exploratorio**, por si a alguien le sirve. **Puede contener errores**; conviene contrastar cualquier cifra con las
+fuentes originales antes de usarla o citarla.
+
+### Datos y fuentes
+- **Proyecciones:** planillas mensuales del Relevamiento de Expectativas de Mercado (REM) del BCRA, desde junio de 2016. Se usa la
+  **mediana** de los analistas y, cuando existe, el rango **p10–p90**.
+- **Resultados reales:** series del BCRA (tipo de cambio mayorista, tasas, inflación) y del INDEC vía datos.gob.ar (inflación
+  núcleo y GBA, PIB, desocupación, exportaciones e importaciones). Los datos se actualizan una vez por mes de forma automática.
+- **Hitos** (líneas punteadas): fechas orientativas cargadas a mano; no son parte del análisis.
+
+### Cómo se calcula
+- **Error = real − mediana proyectada.** Positivo: el REM subestimó; negativo: sobreestimó. **Horizonte** = meses entre el
+  relevamiento y el período proyectado.
+- Tipo de cambio y tasas se comparan contra el **promedio mensual**; la inflación y las demás variables, contra el dato del período.
+  Del PIB se usa la **última versión publicada**, no la primera estimación (el INDEC la revisa).
+- **Pronóstico ingenuo:** repetir el último dato conocido al momento del relevamiento. Supuse un rezago de publicación de 0 meses
+  para series mensuales y de 2 para trimestrales y anuales: **es un supuesto mío**, discutible.
+- Solo se cuentan proyecciones cuyo resultado real ya fue publicado.
+
+### Límites (leer antes de sacar conclusiones)
+1. **Es descriptivo, no inferencial.** No hay tests de significancia ni intervalos de confianza: no permite afirmar que una diferencia
+   sea "estadísticamente significativa".
+2. **Las observaciones no son independientes.** Muchos relevamientos proyectan los mismos períodos, así que el *n* (cantidad de
+   observaciones) **sobreestima la evidencia** disponible.
+3. **Los promedios dependen de pocos episodios.** Años como 2018 o 2022–2024 pesan mucho; un promedio general puede esconder que en
+   años tranquilos el REM acierta bastante mejor. Conviene mirar los resultados por año (heatmap y gráfico de errores en el tiempo).
+4. **El REM no es un pronóstico del BCRA:** es la mediana de las respuestas de analistas privados que el BCRA recopila y publica.
+   Esta herramienta no evalúa al BCRA ni a ningún analista en particular.
+5. **Algunos reales son aproximados.** LEBAC 35 días, Pases a 7 días y LELIQ se comparan contra una única serie de tasa de política
+   empalmada; no es exactamente la misma tasa. Tomarlas con pinzas.
+6. **Hay variables con pocos datos.** Por ejemplo, el PIB trimestral interanual solo tiene proyecciones de 2016–2017 y cada
+   relevamiento trae apenas 2 o 3 trimestres del PIB; algunas tasas cubren períodos cortos. Mirar siempre el *n*.
+7. **El IPC nacional anterior a 2017** se excluye por defecto (el INDEC no publicaba nivel nacional).
+8. **Sin auditoría independiente:** el procesamiento de datos y los cálculos no fueron verificados por un especialista.
+9. **No es asesoramiento financiero ni una opinión política.** Es una exploración de datos públicos.
+""")
+    if REPO_URL:
+        st.markdown(f"Código y datos: {REPO_URL}")
+    st.markdown(f"**Correcciones y comentarios:** {CONTACTO}" if CONTACTO else
+                "**Correcciones y comentarios:** si encontrás un error, avisame por el mismo medio donde encontraste este link.")
+
 st.markdown(
     f'<div class="rem-foot">Fuentes: REM y estadísticas monetarias (BCRA); INDEC vía datos.gob.ar. '
-    f'Último relevamiento cargado: {esc(LONG["relevamiento"].max())}. Las proyecciones son las medianas publicadas; '
-    f'los resultados reales se toman de la última versión disponible de cada serie.</div>', unsafe_allow_html=True)
+    f'Último relevamiento cargado: {esc(LONG["relevamiento"].max())}. Herramienta exploratoria hecha con ayuda de IA; '
+    f'puede contener errores (ver «Metodología y límites»).<br>© 2026 MTaurus • @MTaurus_ok • Buenos Aires</div>', unsafe_allow_html=True)
