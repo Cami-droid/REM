@@ -1,0 +1,55 @@
+name: Ingesta mensual
+
+on:
+  schedule:
+    - cron: "0 12 15 * *"   # dia 15, 12:00 UTC (09:00 ART): REM ya publicado (inicio de mes) e IPC INDEC (~mitad de mes)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ingesta
+  cancel-in-progress: false
+
+jobs:
+  ingesta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Dependencias
+        run: pip install pandas numpy requests openpyxl
+
+      # Cualquier paso que salga con codigo != 0 corta el job: no se commitea nada hasta resolverlo.
+      - name: REM (descarga + parseo) -> data/rem_long.csv
+        run: |
+          python build_data.py
+          echo "--- missing.txt ---"; cat data/missing.txt || true
+
+      - name: Reales BCRA (v4.0)
+        run: python fetch_actuals.py || python fetch_actuals.py --insecure   # fallback por cadena SSL incompleta de api.bcra.gob.ar
+
+      - name: Reales INDEC (datos.gob.ar)
+        run: python fetch_indec.py   # sale con 1 si queda una serie base sin resolver (hoy PIB_SA)
+
+      - name: Errores -> data/rem_errors.csv
+        run: python compute_errors.py
+
+      - name: Commit de data/
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "Sin cambios en data/"
+          else
+            git commit -m "data: actualizacion $(date -u +%F)"
+            git push
+          fi
