@@ -3,6 +3,7 @@ app.py - Streamlit: evolucion de las proyecciones del REM (BCRA) y desvio respec
 Lee data/rem_long.csv y data/rem_errors.csv (build_data.py / compute_errors.py) y, opcional, data/hitos.csv
 (columnas: fecha, etiqueta) para marcar hitos en los graficos temporales.
 """
+import html
 from pathlib import Path
 
 import numpy as np
@@ -19,7 +20,45 @@ TIPO_LABEL = {"mes": "Mensual", "trim": "Trimestral", "anio": "Anual (cierre/pro
               "prox_12m": "Próximos 12 meses", "prox_24m": "Próximos 24 meses (12 a 24)"}
 # rezago de publicacion (meses) para definir "ultimo dato conocido" al momento del relevamiento (benchmark ingenuo)
 LAGS = {"mes": 0, "trim": 2, "anio": 2, "prox_12m": 0, "prox_24m": 0}
-st.set_page_config(page_title="REM: proyecciones vs. realidad", layout="wide")
+st.set_page_config(page_title="REM: proyecciones vs. realidad", page_icon="📈", layout="wide")
+
+# Paleta pensada para verse bien en modo claro y oscuro: azul = REM, rojo anaranjado = real, gris = ingenuo.
+REAL, REM_C, BAND = "#E8452C", "#2F80ED", "rgba(47,128,237,0.18)"
+NAIVE, BAR, ACCENT = "#8B95A5", "#F2A93B", "#12A594"
+FONT_BODY, FONT_DISPLAY = "Inter, system-ui, sans-serif", "Fraunces, Georgia, serif"
+VAR_NAMES = {
+    "DESOCUPACION": "Desocupación", "EXPORTACIONES": "Exportaciones", "IMPORTACIONES": "Importaciones",
+    "IPC_NG_GBA": "Inflación GBA (nivel general)", "IPC_NG_NAC": "Inflación nacional (nivel general)",
+    "IPC_NUCLEO_GBA": "Inflación núcleo GBA", "IPC_NUCLEO_NAC": "Inflación núcleo nacional",
+    "PIB": "PIB (actividad económica)", "RESULTADO_PRIMARIO_SPNF": "Resultado primario del sector público",
+    "TASA_BADLAR": "Tasa BADLAR", "TASA_LEBAC35": "Tasa LEBAC a 35 días", "TASA_LELIQ": "Tasa LELIQ",
+    "TASA_PASE7": "Tasa de pases a 7 días", "TASA_TAMAR": "Tasa TAMAR", "TC_NOMINAL": "Tipo de cambio nominal",
+}
+
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap');
+:root { --rem-line: rgba(127,127,127,.28); --rem-soft: rgba(127,127,127,.07); --rem-accent: #12A594;
+        --rem-display: 'Fraunces', Georgia, serif; --rem-body: 'Inter', system-ui, sans-serif; }
+.stApp { font-family: var(--rem-body); }
+.block-container { max-width: 1240px; padding-top: 2.2rem; padding-bottom: 3rem; }
+#MainMenu, footer { visibility: hidden; }
+[data-testid="stHeader"] { background: transparent; }
+h1, h2, h3 { font-family: var(--rem-display) !important; letter-spacing: -.01em; }
+.rem-kicker { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--rem-accent); font-weight: 600; }
+.rem-title { font-family: var(--rem-display); font-size: 2.6rem; line-height: 1.1; font-weight: 700; margin: .3rem 0 .4rem; }
+.rem-sub { opacity: .7; font-size: 1rem; margin-bottom: 1.2rem; }
+[data-testid="stMetric"] { border: 1px solid var(--rem-line); background: var(--rem-soft); border-radius: 14px; padding: 14px 16px; }
+[data-testid="stMetricValue"] { font-family: var(--rem-display); font-weight: 700; }
+[data-testid="stMetricLabel"] p { font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; opacity: .75; }
+.rem-callout { border-left: 4px solid var(--rem-accent); background: var(--rem-soft); padding: .9rem 1.1rem;
+               border-radius: 0 12px 12px 0; margin: .9rem 0 1.3rem; line-height: 1.6; }
+button[role="tab"] { font-weight: 600; }
+[data-testid="stExpander"] { border: 1px solid var(--rem-line) !important; border-radius: 14px; }
+[data-testid="stSidebar"] { border-right: 1px solid var(--rem-line); }
+.rem-foot { opacity: .6; font-size: .8rem; border-top: 1px solid var(--rem-line); margin-top: 2.5rem; padding-top: .8rem; }
+</style>
+""", unsafe_allow_html=True)
 
 
 # ---------------------------------------------------------------- datos
@@ -116,6 +155,27 @@ def add_hitos(fig, annual=False):
     return fig
 
 
+def esc(t):
+    """Escapa HTML y '$' (st.markdown lo interpretaria como LaTeX)."""
+    return html.escape(str(t)).replace("$", "&#36;")
+
+
+def style(fig):
+    """Estilo comun de los graficos (transparente, tipografia propia, grilla suave; funciona en claro y oscuro)."""
+    line, grid = "rgba(127,127,127,.45)", "rgba(127,127,127,.18)"
+    fig.update_layout(font=dict(family=FONT_BODY, size=13),
+                      title=dict(x=0, xanchor="left", font=dict(family=FONT_DISPLAY, size=20)),
+                      margin=dict(l=10, r=10, t=64, b=10), paper_bgcolor="rgba(0,0,0,0)",
+                      plot_bgcolor="rgba(0,0,0,0)", hoverlabel=dict(font_family=FONT_BODY))
+    fig.update_xaxes(showgrid=False, zeroline=False, showline=True, linecolor=line, ticks="outside", tickcolor=line)
+    fig.update_yaxes(gridcolor=grid, zeroline=False, showline=False)
+    return fig
+
+
+def show(fig):
+    st.plotly_chart(style(fig), width="stretch")
+
+
 def unit_label(unidad):
     return "pp" if "%" in unidad else unidad
 
@@ -143,11 +203,12 @@ except FileNotFoundError as ex:
 
 # ---------------------------------------------------------------- sidebar (con estado en la URL)
 qp = st.query_params
+st.sidebar.markdown('<div class="rem-kicker">REM · Proyecciones vs. realidad</div>', unsafe_allow_html=True)
 st.sidebar.header("Filtros")
 variables = sorted(LONG["variable"].unique())
 if "variable" not in st.session_state and qp.get("v") in variables:
     st.session_state["variable"] = qp["v"]
-variable = st.sidebar.selectbox("Variable", variables, key="variable")
+variable = st.sidebar.selectbox("Variable", variables, key="variable", format_func=lambda v: VAR_NAMES.get(v, v))
 sv = LONG[LONG["variable"] == variable]
 unidades = sv["unidad_norm"].value_counts().index.tolist()  # la unidad con más datos primero (default)
 if f"unidad|{variable}" not in st.session_state and qp.get("u") in unidades:
@@ -194,7 +255,11 @@ else:
 een = with_naive(ee, tipo) if not ee.empty else ee.assign(naive=np.nan, naive_err=np.nan, naive_abs=np.nan)
 
 # ---------------------------------------------------------------- encabezado
-st.title(f"REM: {variable} · {unidad}")
+st.markdown(
+    f'<div class="rem-kicker">Relevamiento de Expectativas de Mercado · BCRA</div>'
+    f'<div class="rem-title">{esc(VAR_NAMES.get(variable, variable))}</div>'
+    f'<div class="rem-sub">{esc(unidad)} · {esc(TIPO_LABEL.get(tipo, tipo))} · relevamientos {esc(r0)} a {esc(r1)}</div>',
+    unsafe_allow_html=True)
 if variable in APROX_TASA:
     st.caption("Ojo: el BCRA publica una sola serie de tasa de política (empalmada); es una aproximación para esta variable.")
 
@@ -255,7 +320,7 @@ else:
                 delta=("REM mejor" if m["ratio"] < 1 else "REM peor") if m["ratio"] == m["ratio"] else None,
                 delta_color="off",
                 help="Compara el error del REM con el de un pronóstico sin esfuerzo: repetir el último dato conocido. Menor a 1: el REM se equivoca menos que el ingenuo. Mayor a 1: no le gana.")
-    st.info(frase(unidad, m["n"], h0, h1, m))
+    st.markdown(f'<div class="rem-callout">{esc(frase(unidad, m["n"], h0, h1, m))}</div>', unsafe_allow_html=True)
 
 t_res, t_evo, t_hor, t_tie = st.tabs(["Resumen general", "Evolución de proyecciones", "Error por horizonte",
                                        "Errores en el tiempo"])
@@ -293,7 +358,7 @@ with t_evo:
     band = lambda f, x, lo, hi: (f.add_trace(go.Scatter(x=x, y=hi, mode="lines", line=dict(width=0),
                                                         showlegend=False, hoverinfo="skip")),
                                  f.add_trace(go.Scatter(x=x, y=lo, mode="lines", line=dict(width=0), fill="tonexty",
-                                                        fillcolor="rgba(31,119,180,0.2)", name="p10–p90")))
+                                                        fillcolor=BAND, name="p10–p90")))
     realr = base.dropna(subset=["real"]).drop_duplicates("fecha_objetivo").sort_values("fecha_objetivo")
     annual_axis = False
 
@@ -307,13 +372,13 @@ with t_evo:
             band(fig, d["rel_dt"], d["p10"], d["p90"])
         cd = np.stack([d["p10"], d["p90"], d["real"], d["real"] - d["mediana"]], axis=-1)
         fig.add_trace(go.Scatter(x=d["rel_dt"], y=d["mediana"], mode="lines+markers", name="Mediana REM",
-                                 line=dict(color="#1f77b4"), customdata=cd,
+                                 line=dict(color=REM_C), customdata=cd,
                                  hovertemplate="Relevamiento %{x|%Y-%m}<br>Mediana: %{y:,.2f}<br>p10–p90: "
                                                "%{customdata[0]:,.2f} – %{customdata[1]:,.2f}<br>Real: "
                                                "%{customdata[2]:,.2f}<br>Error: %{customdata[3]:+,.2f}<extra></extra>"))
         real = d["real"].dropna()
         if not real.empty:
-            fig.add_hline(y=real.iloc[0], line=dict(color="black", dash="dash"),
+            fig.add_hline(y=real.iloc[0], line=dict(color=REAL, dash="dash", width=2),
                           annotation_text=f"Real: {real.iloc[0]:,.2f}", annotation_position="top left")
         fig.update_layout(title=f"Qué proyectaba cada relevamiento para {fmt_obj(obj, tipo)}",
                           xaxis_title="Relevamiento", yaxis_title=unidad)
@@ -340,7 +405,7 @@ with t_evo:
         annual_axis = tipo == "anio"
         if not realr.empty:
             fig.add_trace(go.Scatter(x=xf(realr["fecha_objetivo"], tipo), y=realr["real"], mode="lines+markers",
-                                     name="Real", line=dict(color="black", width=3)))
+                                     name="Real", line=dict(color=REAL, width=3.5)))
         cols = sample_colorscale("Viridis", [i / max(len(sel) - 1, 1) for i in range(len(sel))])
         for r, c_ in zip(sorted(sel), cols):  # violeta (viejos) -> amarillo (recientes)
             d = view[view["relevamiento"] == r].sort_values("fecha_objetivo")
@@ -363,12 +428,12 @@ with t_evo:
             band(fig, x, d["p10"], d["p90"])
         cd = np.stack([d["relevamiento"], d["real"], d["real"] - d["mediana"]], axis=-1)
         fig.add_trace(go.Scatter(x=x, y=d["mediana"], mode="lines+markers", name=f"REM a {hsel} meses",
-                                 line=dict(color="#1f77b4"), customdata=cd,
+                                 line=dict(color=REM_C), customdata=cd,
                                  hovertemplate="Relevamiento %{customdata[0]}<br>Mediana: %{y:,.2f}<br>Real: "
                                                "%{customdata[1]:,.2f}<br>Error: %{customdata[2]:+,.2f}<extra></extra>"))
         if not realr.empty:
             fig.add_trace(go.Scatter(x=xf(realr["fecha_objetivo"], tipo), y=realr["real"], mode="lines+markers",
-                                     name="Real", line=dict(color="black", width=2.5)))
+                                     name="Real", line=dict(color=REAL, width=3)))
         fig.update_layout(title=f"Lo que el REM proyectaba {hsel} meses antes vs. lo que pasó",
                           xaxis_title="Período objetivo", yaxis_title=unidad)
         if annual_axis:
@@ -381,11 +446,11 @@ with t_evo:
         x = xf(d["fecha_objetivo"], tipo)
         if not realr.empty:
             fig.add_trace(go.Scatter(x=xf(realr["fecha_objetivo"], tipo), y=realr["real"], mode="lines",
-                                     name="Real (histórico)", line=dict(color="black", width=2.5)))
+                                     name="Real (histórico)", line=dict(color=REAL, width=3)))
         if d["p10"].notna().any():
             band(fig, x, d["p10"], d["p90"])
         fig.add_trace(go.Scatter(x=x, y=d["mediana"], mode="lines+markers", name=f"Mediana REM {last}",
-                                 line=dict(color="#d62728")))
+                                 line=dict(color=REM_C)))
         fig.update_layout(title=f"Proyecciones del último relevamiento ({last}) y real histórico",
                           xaxis_title="Período objetivo", yaxis_title=unidad)
         if annual_axis:
@@ -397,19 +462,19 @@ with t_evo:
         add_hitos(fig, annual=False)
     fig.update_layout(hovermode="x unified" if modo != "Por período objetivo" else "closest",
                       legend=dict(orientation="h", y=-0.2), height=520)
-    st.plotly_chart(fig, width="stretch")
+    show(fig)
     st.caption({
-        "Por período objetivo": "Cada punto es un relevamiento distinto que proyecta el **mismo** período; la línea negra punteada es lo que "
-                                "finalmente pasó y la banda celeste el rango p10–p90. Si la línea azul se acerca a la negra a medida que se acerca "
+        "Por período objetivo": "Cada punto es un relevamiento distinto que proyecta el **mismo** período; la línea roja punteada es lo que "
+                                "finalmente pasó y la banda azul clara el rango p10–p90. Si la línea azul se acerca a la roja a medida que se acerca "
                                 "el período, el REM fue ajustando.",
         "Trayectorias por relevamiento": "Cada línea de color es **un relevamiento** y muestra lo que proyectaba hacia adelante "
-                                         "(violeta: viejos; amarillo: recientes). La línea negra gruesa es lo que pasó: cuanto más lejos "
-                                         "queda una línea de color de la negra, mayor fue el error.",
-        "Horizonte fijo vs. real": "Cada punto azul es lo que el REM proyectaba **N meses antes** de cada período; la línea negra es lo que "
+                                         "(violeta: viejos; amarillo: recientes). La línea roja gruesa es lo que pasó: cuanto más lejos "
+                                         "queda una línea de color de la roja, mayor fue el error.",
+        "Horizonte fijo vs. real": "Cada punto azul es lo que el REM proyectaba **N meses antes** de cada período; la línea roja es lo que "
                                    "pasó. La distancia vertical entre ambas es el error a ese horizonte; la banda muestra la incertidumbre "
                                    "que declaraban los analistas.",
-        "Último relevamiento (fan chart)": "Lo que proyecta el relevamiento más reciente hacia adelante (rojo), con su rango p10–p90, "
-                                           "junto con el historial real (negro). No hay error para calcular todavía: es lo que se espera hoy.",
+        "Último relevamiento (fan chart)": "Lo que proyecta el relevamiento más reciente hacia adelante (azul), con su rango p10–p90, "
+                                           "junto con el historial real (rojo). No hay error para calcular todavía: es lo que se espera hoy.",
     }[modo])
 
 # ---------------------------------------------------------------- error por horizonte
@@ -429,38 +494,38 @@ with t_hor:
             st.info("Ningún horizonte alcanza el n mínimo.")
         else:
             f1 = go.Figure()
-            f1.add_trace(go.Bar(x=g["horizonte_meses"], y=g["sesgo"], name="Sesgo (error medio)", marker_color="#ff7f0e"))
+            f1.add_trace(go.Bar(x=g["horizonte_meses"], y=g["sesgo"], name="Sesgo (error medio)", marker_color=BAR))
             f1.add_trace(go.Scatter(x=g["horizonte_meses"], y=g["MAE"], name="MAE REM", mode="lines+markers",
-                                    line=dict(color="#1f77b4")))
+                                    line=dict(color=REM_C)))
             f1.add_trace(go.Scatter(x=g["horizonte_meses"], y=g["MAE_ingenuo"], name="MAE ingenuo (último dato)",
-                                    mode="lines+markers", line=dict(color="gray", dash="dash")))
+                                    mode="lines+markers", line=dict(color=NAIVE, dash="dash")))
             f1.add_hline(y=0, line=dict(color="gray", width=1))
             f1.update_layout(title="Sesgo, MAE del REM y MAE del pronóstico ingenuo por horizonte",
                              xaxis_title="Horizonte (meses)", yaxis_title=unidad, height=420,
                              legend=dict(orientation="h", y=-0.25))
-            st.plotly_chart(f1, width="stretch")
+            show(f1)
             st.caption("**Barras naranjas (sesgo):** hacia arriba, el REM subestimó; hacia abajo, sobreestimó. **Línea azul:** cuánto se equivocó "
                        "el REM (MAE). **Línea gris punteada:** cuánto se equivocaría alguien que solo repite el último dato conocido (MAE "
                        "ingenuo). Si la azul está **por debajo** de la gris, el REM aporta información. Es normal que el error crezca con el "
                        "horizonte. El MAE ingenuo se calcula solo donde existe un último dato conocido.")
 
             if g["cobertura"].notna().any():
-                f2 = go.Figure(go.Scatter(x=g["horizonte_meses"], y=g["cobertura"], mode="lines+markers"))
+                f2 = go.Figure(go.Scatter(x=g["horizonte_meses"], y=g["cobertura"], mode="lines+markers", line=dict(color=ACCENT)))
                 f2.add_hline(y=0.8, line=dict(color="gray", dash="dash"), annotation_text="80% nominal")
                 f2.update_layout(title="Cobertura p10–p90 por horizonte", xaxis_title="Horizonte (meses)",
                                  yaxis=dict(range=[0, 1], tickformat=".0%"), height=330)
-                st.plotly_chart(f2, width="stretch")
+                show(f2)
                 st.caption("Porcentaje de veces que el real cayó dentro del rango p10–p90. Si el punto está **por debajo de la línea de 80%**, "
                            "los analistas fueron demasiado confiados (el rango era muy angosto).")
 
             hh = een[een["horizonte_meses"].isin(g["horizonte_meses"])]
-            f3 = go.Figure(go.Box(x=hh["horizonte_meses"], y=hh["error"], boxpoints=False, marker_color="#1f77b4",
+            f3 = go.Figure(go.Box(x=hh["horizonte_meses"], y=hh["error"], boxpoints=False, marker_color=REM_C,
                                   name="error"))
             f3.add_hline(y=0, line=dict(color="gray", width=1))
             f3.update_layout(title="Distribución del error por horizonte (caja: p25–p75; bigotes: rango sin atípicos)",
                              xaxis_title="Horizonte (meses)", yaxis_title=f"error ({unidad})", height=380,
                              showlegend=False)
-            st.plotly_chart(f3, width="stretch")
+            show(f3)
             st.caption("Cada caja contiene al 50% central de los errores de ese horizonte; la línea interna es la mediana y los bigotes "
                        "muestran el resto (sin atípicos). **Cajas anchas:** errores muy dispersos. **Cajas alejadas de 0:** sesgo sistemático.")
 
@@ -473,7 +538,7 @@ with t_hor:
                                       hovertemplate="Año relev. %{y}<br>Horizonte %{x}m<br>" + met + ": %{z:,.2f}<extra></extra>"))
             f4.update_layout(title=f"{met} por año de relevamiento y horizonte", xaxis_title="Horizonte (meses)",
                              yaxis=dict(type="category", autorange="reversed"), height=420)
-            st.plotly_chart(f4, width="stretch")
+            show(f4)
             st.caption("Cada celda promedia los errores de los relevamientos de ese año a ese horizonte. "
                        + ("Rojo: el REM subestimó (real > proyectado); azul: sobreestimó; blanco: sin sesgo."
                           if met == "Sesgo" else "Más oscuro = mayor error absoluto medio."))
@@ -513,7 +578,7 @@ with t_tie:
         if annual_axis:
             f5.update_xaxes(dtick=1)
         add_hitos(f5, annual=annual_axis)
-        st.plotly_chart(f5, width="stretch")
+        show(f5)
         st.caption("Cada punto es el error de una proyección (real − proyectado), ubicado en el período que se quería predecir. "
                    "**Sobre 0:** el REM subestimó; **bajo 0:** sobreestimó. El color indica con cuánta anticipación se proyectó: los errores "
                    "más grandes suelen ser de los horizontes largos (amarillo), sobre todo en períodos de quiebre.")
@@ -532,7 +597,7 @@ with t_tie:
                           "%{customdata[1]} (h=%{customdata[2]}m)<extra></extra>"))
         f6.update_layout(title="Proyectado (mediana) vs. real", xaxis_title=f"proyectado ({unidad})",
                          yaxis_title=f"real ({unidad})", height=450)
-        st.plotly_chart(f6, width="stretch")
+        show(f6)
         st.caption("Cada punto compara lo proyectado (eje horizontal) con lo que pasó (eje vertical). Si el REM acertara siempre, todos "
                    "estarían **sobre la diagonal**. Puntos **arriba** de la diagonal: el real fue mayor que lo proyectado (subestimó); "
                    "**abajo**: sobreestimó.")
@@ -545,3 +610,8 @@ with t_tie:
         if variable in NIVELES:
             cols_top.append("error_rel_pct")
         st.dataframe(top[cols_top].round(2), width="stretch", hide_index=True)
+
+st.markdown(
+    f'<div class="rem-foot">Fuentes: REM y estadísticas monetarias (BCRA); INDEC vía datos.gob.ar. '
+    f'Último relevamiento cargado: {esc(LONG["relevamiento"].max())}. Las proyecciones son las medianas publicadas; '
+    f'los resultados reales se toman de la última versión disponible de cada serie.</div>', unsafe_allow_html=True)
