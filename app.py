@@ -29,7 +29,12 @@ REPO_URL = ""    # completar: link al repositorio (opcional)
 CONTACTO = "[@MTaurus_ok en X](https://x.com/MTaurus_ok)"   # para correcciones y comentarios
 WATERMARK = "MTaurus - X: MTaurus_ok"   # marca de agua en los gráficos ("" para desactivarla)
 FONT_BODY, FONT_DISPLAY = "Inter, system-ui, sans-serif", "Fraunces, Georgia, serif"
+SPLICE = "TASA_POLITICA_EMP"   # variable sintética: empalme de tasas de política (LEBAC 35d → Pase 7d → LELIQ)
+POL_PRIO = {"TASA_LELIQ": ("LELIQ", 0), "TASA_PASE7": ("Pase 7 días", 1), "TASA_LEBAC35": ("LEBAC 35 días", 2)}
+INSTR_COL = {"LEBAC 35 días": "#F2A93B", "Pase 7 días": "#2F80ED", "LELIQ": "#B77BFF"}
+INSTR_SYM = {"LEBAC 35 días": "diamond", "Pase 7 días": "circle", "LELIQ": "square"}
 VAR_NAMES = {
+    SPLICE: "Tasa de política monetaria (EMPALME)",
     "DESOCUPACION": "Desocupación", "EXPORTACIONES": "Exportaciones", "IMPORTACIONES": "Importaciones",
     "IPC_NG_GBA": "Inflación GBA (nivel general)", "IPC_NG_NAC": "Inflación nacional (nivel general)",
     "IPC_NUCLEO_GBA": "Inflación núcleo GBA", "IPC_NUCLEO_NAC": "Inflación núcleo nacional",
@@ -51,6 +56,7 @@ h1, h2, h3 { font-family: var(--rem-display) !important; letter-spacing: -.01em;
 .rem-kicker { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--rem-accent); font-weight: 600; }
 .rem-title { font-family: var(--rem-display); font-size: 2.6rem; line-height: 1.1; font-weight: 700; margin: .3rem 0 .4rem; }
 .rem-sub { opacity: .7; font-size: 1rem; margin-bottom: .6rem; }
+.rem-warn { border-left-color: #F2A93B; }
 .rem-note { font-size: .85rem; opacity: .75; margin-bottom: 1.1rem; }
 [data-testid="stMetric"] { border: 1px solid var(--rem-line); background: var(--rem-soft); border-radius: 14px; padding: 14px 16px; }
 [data-testid="stMetricValue"] { font-family: var(--rem-display); font-weight: 700; }
@@ -66,6 +72,18 @@ button[role="tab"] { font-weight: 600; }
 
 
 # ---------------------------------------------------------------- datos
+def add_splice(df):
+    """Agrega la variable sintética SPLICE: une LEBAC 35d, Pase 7d y LELIQ. Si una misma edición publicó dos instrumentos para el
+    mismo período objetivo, gana el más nuevo (LELIQ > Pase > LEBAC). Guarda el instrumento original en 'instrumento'."""
+    x = df[df["variable"].isin(POL_PRIO)].copy()
+    x["instrumento"] = x["variable"].map(lambda v: POL_PRIO[v][0])
+    x["_p"] = x["variable"].map(lambda v: POL_PRIO[v][1])
+    x = x.sort_values("_p").drop_duplicates(["relevamiento", "periodo_tipo", "fecha_objetivo"], keep="first")
+    x = x.drop(columns="_p")
+    x["variable"], x["unidad_norm"] = SPLICE, "TNA; %"
+    return pd.concat([df, x], ignore_index=True)
+
+
 @st.cache_data(show_spinner=False)
 def load():
     long = pd.read_csv(DATA / "rem_long.csv", parse_dates=["fecha_objetivo"])
@@ -77,7 +95,7 @@ def load():
     for d in (long, err):
         d["rel_dt"] = pd.to_datetime(d["relevamiento"] + "-01")
         d["rel_year"] = d["rel_dt"].dt.year
-    return long, err
+    return add_splice(long), add_splice(err)
 
 
 @st.cache_data(show_spinner=False)
@@ -157,6 +175,24 @@ def add_hitos(fig, annual=False):
         fig.add_annotation(x=x, y=1, yref="paper", text=str(r.get("etiqueta", "")), showarrow=False,
                            textangle=-90, xanchor="left", yanchor="top", font=dict(size=10, color="gray"))
     return fig
+
+
+def mcolors(d, default):
+    """Color de marcador por instrumento (solo en el empalme de tasas)."""
+    if "instrumento" in d and d["instrumento"].notna().any():
+        return d["instrumento"].map(INSTR_COL).fillna(default).tolist()
+    return default
+
+
+def instr_legend(fig, d, symbols=False):
+    """Entradas de leyenda por instrumento (solo en el empalme de tasas)."""
+    if "instrumento" not in d or d["instrumento"].isna().all():
+        return
+    for k, c in INSTR_COL.items():
+        if (d["instrumento"] == k).any():
+            fig.add_trace(go.Scatter(x=[None], y=[None], mode="markers", name=k,
+                                     marker=dict(color="#8B95A5" if symbols else c, size=9,
+                                                 symbol=INSTR_SYM[k] if symbols else "circle")))
 
 
 def esc(t):
@@ -269,6 +305,16 @@ st.markdown(
     unsafe_allow_html=True)
 st.markdown('<div class="rem-note">Proyecto exploratorio y divulgativo de MTaurus (@MTaurus_ok), hecho con ayuda de IA; puede contener errores. '
             'Leé la pestaña «Metodología y límites» antes de sacar conclusiones.</div>', unsafe_allow_html=True)
+if variable == SPLICE:
+    st.markdown(
+        '<div class="rem-callout rem-warn"><b>⚠️ Esto es un empalme armado por MTaurus, no una serie que publique el REM.</b> '
+        'Combina tres tasas de política de distintas épocas: <b>LEBAC a 35 días</b> (relevamientos jun–nov 2016), '
+        '<b>Pase a 7 días</b> (oct-2016 a jul-2018) y <b>LELIQ</b> (ago-2018 a dic-2019). En las ediciones de oct y nov de 2016 el REM '
+        'publicó LEBAC y Pase a la vez, separadas por período objetivo: se usa LEBAC para el resto de 2016 y Pase de 2017 en adelante. '
+        'Son instrumentos distintos, así que sus niveles no son estrictamente comparables entre sí; el real contra el que se mide es la '
+        'serie de tasa de política del BCRA, que también es un empalme. En los datos cargados no hay tasa de política posterior a '
+        'dic-2019: desde 2020 el REM releva la BADLAR y desde dic-2024 la TAMAR. Los colores y formas indican el instrumento.</div>',
+        unsafe_allow_html=True)
 if variable in APROX_TASA:
     st.caption("Ojo: el BCRA publica una sola serie de tasa de política (empalmada); es una aproximación para esta variable.")
 
@@ -381,10 +427,11 @@ with t_evo:
             band(fig, d["rel_dt"], d["p10"], d["p90"])
         cd = np.stack([d["p10"], d["p90"], d["real"], d["real"] - d["mediana"]], axis=-1)
         fig.add_trace(go.Scatter(x=d["rel_dt"], y=d["mediana"], mode="lines+markers", name="Mediana REM",
-                                 line=dict(color=REM_C), customdata=cd,
+                                 line=dict(color=REM_C), marker=dict(color=mcolors(d, REM_C), size=8), customdata=cd,
                                  hovertemplate="Relevamiento %{x|%Y-%m}<br>Mediana: %{y:,.2f}<br>p10–p90: "
                                                "%{customdata[0]:,.2f} – %{customdata[1]:,.2f}<br>Real: "
                                                "%{customdata[2]:,.2f}<br>Error: %{customdata[3]:+,.2f}<extra></extra>"))
+        instr_legend(fig, d)
         real = d["real"].dropna()
         if not real.empty:
             fig.add_hline(y=real.iloc[0], line=dict(color=REAL, dash="dash", width=2),
@@ -419,7 +466,7 @@ with t_evo:
         for r, c_ in zip(sorted(sel), cols):  # violeta (viejos) -> amarillo (recientes)
             d = view[view["relevamiento"] == r].sort_values("fecha_objetivo")
             fig.add_trace(go.Scatter(x=xf(d["fecha_objetivo"], tipo), y=d["mediana"], mode="lines+markers",
-                                     name=f"REM {r}", line=dict(width=1.8, color=c_), marker=dict(size=5)))
+                                     name=f"REM {r}" + (f" · {d['instrumento'].iloc[0]}" if "instrumento" in d and d["instrumento"].notna().any() else ""), line=dict(width=1.8, color=c_), marker=dict(size=5)))
         fig.update_layout(title="Trayectorias proyectadas (mediana) vs. real", xaxis_title="Período objetivo",
                           yaxis_title=unidad)
         if annual_axis:
@@ -437,12 +484,13 @@ with t_evo:
             band(fig, x, d["p10"], d["p90"])
         cd = np.stack([d["relevamiento"], d["real"], d["real"] - d["mediana"]], axis=-1)
         fig.add_trace(go.Scatter(x=x, y=d["mediana"], mode="lines+markers", name=f"REM a {hsel} meses",
-                                 line=dict(color=REM_C), customdata=cd,
+                                 line=dict(color=REM_C), marker=dict(color=mcolors(d, REM_C), size=8), customdata=cd,
                                  hovertemplate="Relevamiento %{customdata[0]}<br>Mediana: %{y:,.2f}<br>Real: "
                                                "%{customdata[1]:,.2f}<br>Error: %{customdata[2]:+,.2f}<extra></extra>"))
         if not realr.empty:
             fig.add_trace(go.Scatter(x=xf(realr["fecha_objetivo"], tipo), y=realr["real"], mode="lines+markers",
                                      name="Real", line=dict(color=REAL, width=3)))
+        instr_legend(fig, d)
         fig.update_layout(title=f"Lo que el REM proyectaba {hsel} meses antes vs. lo que pasó",
                           xaxis_title="Período objetivo", yaxis_title=unidad)
         if annual_axis:
@@ -459,7 +507,8 @@ with t_evo:
         if d["p10"].notna().any():
             band(fig, x, d["p10"], d["p90"])
         fig.add_trace(go.Scatter(x=x, y=d["mediana"], mode="lines+markers", name=f"Mediana REM {last}",
-                                 line=dict(color=REM_C)))
+                                 line=dict(color=REM_C), marker=dict(color=mcolors(d, REM_C), size=8)))
+        instr_legend(fig, d)
         fig.update_layout(title=f"Proyecciones del último relevamiento ({last}) y real histórico",
                           xaxis_title="Período objetivo", yaxis_title=unidad)
         if annual_axis:
@@ -574,13 +623,17 @@ with t_tie:
         st.info("Sin errores calculables.")
     else:
         annual_axis = tipo == "anio"
+        has_i = "instrumento" in een and een["instrumento"].notna().any()
+        syms = een["instrumento"].map(INSTR_SYM).fillna("circle").tolist() if has_i else "circle"
+        inst = een["instrumento"].fillna("") if has_i else pd.Series("", index=een.index)
         f5 = go.Figure(go.Scatter(
-            x=xf(een["fecha_objetivo"], tipo), y=een["error"], mode="markers",
-            marker=dict(size=6, color=een["horizonte_meses"], colorscale="Viridis", showscale=True,
+            x=xf(een["fecha_objetivo"], tipo), y=een["error"], mode="markers", showlegend=False,
+            marker=dict(size=7, symbol=syms, color=een["horizonte_meses"], colorscale="Viridis", showscale=True,
                         colorbar=dict(title="Horizonte<br>(meses)")),
-            customdata=np.stack([een["relevamiento"], een["horizonte_meses"], een["mediana"], een["real"]], axis=-1),
-            hovertemplate="Objetivo %{x}<br>Relevamiento %{customdata[0]} (h=%{customdata[1]}m)<br>Mediana: "
+            customdata=np.stack([een["relevamiento"], een["horizonte_meses"], een["mediana"], een["real"], inst], axis=-1),
+            hovertemplate="Objetivo %{x}<br>Relevamiento %{customdata[0]} (h=%{customdata[1]}m) %{customdata[4]}<br>Mediana: "
                           "%{customdata[2]:,.2f}<br>Real: %{customdata[3]:,.2f}<br>Error: %{y:+,.2f}<extra></extra>"))
+        instr_legend(f5, een, symbols=True)
         f5.add_hline(y=0, line=dict(color="gray", width=1))
         f5.update_layout(title="Error (real − mediana) por período objetivo", xaxis_title="Período objetivo",
                          yaxis_title=f"error ({unidad})", height=450)
@@ -598,12 +651,13 @@ with t_tie:
                                 name="Proyección perfecta", hoverinfo="skip"))
         f6.add_trace(go.Scatter(
             x=een["mediana"], y=een["real"], mode="markers", name="Observaciones",
-            marker=dict(size=6, color=een["horizonte_meses"], colorscale="Viridis", showscale=True,
+            marker=dict(size=7, symbol=syms, color=een["horizonte_meses"], colorscale="Viridis", showscale=True,
                         colorbar=dict(title="Horizonte<br>(meses)")),
             customdata=np.stack([een["relevamiento"], een["fecha_objetivo"].dt.strftime("%Y-%m"),
-                                 een["horizonte_meses"]], axis=-1),
+                                 een["horizonte_meses"], inst], axis=-1),
             hovertemplate="Proyectado: %{x:,.2f}<br>Real: %{y:,.2f}<br>Relevamiento %{customdata[0]} → "
-                          "%{customdata[1]} (h=%{customdata[2]}m)<extra></extra>"))
+                          "%{customdata[1]} (h=%{customdata[2]}m) %{customdata[3]}<extra></extra>"))
+        instr_legend(f6, een, symbols=True)
         f6.update_layout(title="Proyectado (mediana) vs. real", xaxis_title=f"proyectado ({unidad})",
                          yaxis_title=f"real ({unidad})", height=450)
         show(f6)
@@ -664,7 +718,9 @@ fuentes originales antes de usarla o citarla.
    relevamiento trae apenas 2 o 3 trimestres del PIB; algunas tasas cubren períodos cortos. Mirar siempre el *n*.
 7. **El IPC nacional anterior a 2017** se excluye por defecto (el INDEC no publicaba nivel nacional).
 8. **Sin auditoría independiente:** el procesamiento de datos y los cálculos no fueron verificados por un especialista.
-9. **No es asesoramiento financiero ni una opinión política.** Es una exploración de datos públicos.
+9. **La «Tasa de política monetaria (EMPALME)» es un armado mío:** une LEBAC 35 días, Pase 7 días y LELIQ, que son instrumentos
+   distintos y no siempre comparables entre sí; el REM no la publica como una serie única. Mirar también cada tasa por separado.
+10. **No es asesoramiento financiero ni una opinión política.** Es una exploración de datos públicos.
 """)
     if REPO_URL:
         st.markdown(f"Código y datos: {REPO_URL}")
