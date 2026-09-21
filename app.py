@@ -122,15 +122,15 @@ def unit_label(unidad):
 
 def frase(unidad, n, h0, h1, m):
     u = unit_label(unidad)
-    hor = f"A {h0} meses de horizonte" if h0 == h1 else f"Entre {h0} y {h1} meses de horizonte"
-    verbo = "subestimó" if m["sesgo"] > 0 else "sobreestimó"
-    s = (f"{hor} (n = {n}), el REM {verbo} en promedio {abs(m['sesgo']):,.2f} {u}; "
-         f"el error absoluto medio fue {m['MAE']:,.2f} {u}.")
+    hor = f"Proyectando con {h0} meses de anticipación" if h0 == h1 else f"Proyectando con entre {h0} y {h1} meses de anticipación"
+    verbo = "se quedó corto (subestimó)" if m["sesgo"] > 0 else "se pasó (sobreestimó)"
+    s = (f"{hor} (n = {n}), el REM se equivocó en promedio {m['MAE']:,.2f} {u}, para un lado o para el otro (MAE). "
+         f"En promedio {verbo} en {abs(m['sesgo']):,.2f} {u} (sesgo).")
     if m["cobertura"] == m["cobertura"]:
-        s += f" El real cayó dentro de p10–p90 en el {m['cobertura']:.0%} de los casos (nominal: 80%)."
+        s += f" El valor real cayó dentro del rango p10–p90 en el {m['cobertura']:.0%} de los casos (lo esperable sería ~80%)."
     if m["ratio"] == m["ratio"]:
-        s += (f" Su MAE es {m['ratio']:.2f}× el de repetir el último dato conocido: "
-              f"{'mejor' if m['ratio'] < 1 else 'peor'} que el pronóstico ingenuo.")
+        s += (f" Comparado con simplemente repetir el último dato conocido (pronóstico ingenuo), su error es {m['ratio']:.2f} veces el de ese "
+              f"ingenuo: {'el REM lo mejora' if m['ratio'] < 1 else 'el REM no lo mejora'}.")
     return s
 
 
@@ -198,20 +198,41 @@ st.title(f"REM: {variable} · {unidad}")
 if variable in APROX_TASA:
     st.caption("Ojo: el BCRA publica una sola serie de tasa de política (empalmada); es una aproximación para esta variable.")
 
-with st.expander("Cómo leer esto"):
+with st.expander("Cómo leer esto (glosario para no especialistas)", expanded=True):
     st.markdown("""
-- **REM**: Relevamiento de Expectativas de Mercado del BCRA. Cada *relevamiento* (mes) publica la **mediana** de las proyecciones
-  para distintos períodos objetivo y el rango **p10–p90** (entre el 10% y el 90% de los analistas: 80% nominal).
-- **Horizonte**: meses entre el relevamiento y el período objetivo. **Error = real − mediana**: positivo = el REM *subestimó*;
-  negativo = *sobreestimó*. Las unidades son las de la variable (pp, $, millones de USD…).
-- **Sesgo**: error medio (¿se equivoca siempre para el mismo lado?). **MAE**: error absoluto medio (¿cuánto se equivoca?).
-  **Cobertura p10–p90**: % de veces que el real cayó dentro del rango; si es muy inferior al 80%, el REM subestima la incertidumbre.
-- **Pronóstico ingenuo**: repetir el último dato real conocido al momento del relevamiento (con rezago de publicación:
-  0 meses en series mensuales, 2 en trimestrales y anuales). **Ratio < 1**: el REM le gana al ingenuo.
-- **Reales**: tipo de cambio y tasas = promedio mensual; IPC y demás = dato del período. LEBAC/Pase/LELIQ se comparan contra una única
-  serie de tasa de política (aproximación). El PIB se revisa: se usa la última versión publicada.
-- **Comparable**: se excluye el IPC nacional anterior a 2017 (no había nivel nacional del INDEC).
-- **Hitos**: líneas punteadas desde `data/hitos.csv` (`fecha,etiqueta`), editable. La URL guarda variable/unidad/tipo para compartir.
+**¿Qué es el REM?** Cada mes el BCRA consulta a economistas y consultoras qué esperan para la inflación, el dólar, las tasas,
+el PIB, etc. La **mediana** es la proyección "del medio". El rango **p10–p90** deja afuera al 10% más optimista y al 10% más
+pesimista: contiene al 80% de las proyecciones y muestra cuánta incertidumbre hay.
+
+**¿Cómo medimos cuánto se equivocó?** Comparamos lo proyectado con lo que finalmente pasó (el **real**):
+**error = real − proyectado**. Si es **positivo**, el REM *subestimó* (se quedó corto); si es **negativo**, *sobreestimó* (se pasó).
+Ejemplo: proyectaron 3% de inflación mensual y fue 4% → error de +1 **pp** (punto porcentual).
+
+**Horizonte:** con cuántos meses de anticipación se hizo la proyección. Horizonte 0 = el mismo mes; 12 = un año antes.
+Cuanto más lejos, más difícil acertar.
+
+**Sesgo (error medio):** promedia los errores *con su signo*. Si es cercano a cero, los errores se compensan (a veces arriba,
+a veces abajo); si es positivo, el REM tiende a subestimar de forma sistemática. Ojo: puede dar ~0 aunque se equivoque mucho,
+si los errores se cancelan.
+
+**MAE (error absoluto medio):** promedia los errores *sin signo*, es decir, "cuánto se equivoca en promedio, para un lado o
+para el otro". Un MAE de 1,2 pp significa que, típicamente, el REM se desvió unos 1,2 pp del real.
+**RMSE** es parecido, pero castiga más los errores grandes.
+
+**Cobertura p10–p90:** en qué porcentaje de los casos el real cayó dentro del rango p10–p90. Debería rondar el 80%.
+Si es mucho menor (por ejemplo 40%), el REM es demasiado confiado: los analistas subestiman la incertidumbre.
+
+**Pronóstico ingenuo y MAE ingenuo:** es la vara mínima para juzgar al REM. Consiste en suponer que la variable **se queda igual
+que el último dato conocido** cuando se hizo el relevamiento (por ejemplo, si la inflación de abril fue 3%, "proyectar" 3% para
+todos los meses siguientes). El **MAE ingenuo** es el error absoluto medio de ese pronóstico sin esfuerzo.
+El cociente **MAE REM ÷ MAE ingenuo** dice quién gana: **menor a 1** = el REM se equivoca menos que repetir el último dato
+(0,67 = errores un 33% menores); **mayor a 1** = no aporta más que el ingenuo.
+
+**Reales y comparabilidad:** tipo de cambio y tasas se comparan contra el *promedio mensual*; IPC y demás contra el dato del período.
+LEBAC/Pase/LELIQ se comparan con una única serie de tasa de política (aproximación). El PIB se revisa: se usa la última versión.
+Se excluye por defecto el IPC nacional anterior a 2017 (el INDEC no publicaba nivel nacional).
+
+**Hitos:** líneas punteadas de `data/hitos.csv` (`fecha,etiqueta`). **Link:** la URL guarda variable, unidad y tipo para compartir.
 """)
 
 # tarjetas resumen + frase
@@ -221,14 +242,19 @@ else:
     m = metrics(een)
     u = unit_label(unidad)
     c = st.columns(5)
-    c[0].metric("Sesgo (real − mediana)", f"{m['sesgo']:+,.2f} {u}")
-    c[1].metric("MAE", f"{m['MAE']:,.2f} {u}")
-    c[2].metric("Cobertura p10–p90", f"{m['cobertura']:.0%}" if m["cobertura"] == m["cobertura"] else "s/d",
-                delta="nominal 80%", delta_color="off")
-    c[3].metric("Observaciones (n)", f"{m['n']:,}")
-    c[4].metric("MAE REM / MAE ingenuo", f"{m['ratio']:.2f}" if m["ratio"] == m["ratio"] else "s/d",
+    c[0].metric("Sesgo (error medio)", f"{m['sesgo']:+,.2f} {u}",
+                help="Promedio de los errores con signo (real − proyectado). Positivo: el REM tendió a subestimar; negativo: a sobreestimar.")
+    c[1].metric("Error absoluto medio (MAE)", f"{m['MAE']:,.2f} {u}",
+                help="Cuánto se equivocó el REM en promedio, para un lado o para el otro (errores sin signo).")
+    c[2].metric("Cobertura del rango p10–p90", f"{m['cobertura']:.0%}" if m["cobertura"] == m["cobertura"] else "s/d",
+                delta="debería ser ~80%", delta_color="off",
+                help="% de veces que el real cayó dentro del rango entre el 10% más bajo y el 10% más alto de las proyecciones. Si es muy inferior al 80%, el REM subestima la incertidumbre.")
+    c[3].metric("Observaciones (n)", f"{m['n']:,}",
+                help="Cantidad de proyecciones (relevamiento × período objetivo) con real disponible que entran en el cálculo.")
+    c[4].metric("MAE REM ÷ MAE ingenuo", f"{m['ratio']:.2f}" if m["ratio"] == m["ratio"] else "s/d",
                 delta=("REM mejor" if m["ratio"] < 1 else "REM peor") if m["ratio"] == m["ratio"] else None,
-                delta_color="off")
+                delta_color="off",
+                help="Compara el error del REM con el de un pronóstico sin esfuerzo: repetir el último dato conocido. Menor a 1: el REM se equivoca menos que el ingenuo. Mayor a 1: no le gana.")
     st.info(frase(unidad, m["n"], h0, h1, m))
 
 t_res, t_evo, t_hor, t_tie = st.tabs(["Resumen general", "Evolución de proyecciones", "Error por horizonte",
@@ -236,7 +262,9 @@ t_res, t_evo, t_hor, t_tie = st.tabs(["Resumen general", "Evolución de proyecci
 
 # ---------------------------------------------------------------- resumen general (portada)
 with t_res:
-    st.caption("Todas las variables en una tabla (respeta «Solo períodos comparables»). Ratio < 1: el REM le gana al pronóstico ingenuo.")
+    st.caption("Todas las variables en una sola tabla (respeta «Solo períodos comparables»). Para comparar entre filas mirá la "
+               "**cobertura** (debería rondar 80%) y **REM ÷ ingenuo** (menor a 1: el REM se equivoca menos que repetir el último dato). "
+               "Ver el glosario arriba.")
     ph = st.slider("Horizonte (meses)", 0, 24, (0, 12), key="ph_res")
     sm = summary(solo_comp, *ph)
     if sm.empty:
@@ -246,10 +274,13 @@ with t_res:
         st.dataframe(sm.round(3), width="stretch", hide_index=True, column_config={
             "cobertura": st.column_config.ProgressColumn("cobertura p10–p90", min_value=0.0, max_value=100.0,
                                                          format="%.0f%%"),
-            "ratio_vs_ingenuo": st.column_config.NumberColumn("MAE REM / ingenuo", format="%.2f"),
+            "ratio_vs_ingenuo": st.column_config.NumberColumn("MAE REM ÷ ingenuo", format="%.2f",
+                                                              help="Menor a 1: el REM le gana a repetir el último dato."),
+            "sesgo": st.column_config.NumberColumn("sesgo", help="Error medio con signo (real − proyectado)."),
+            "MAE": st.column_config.NumberColumn("MAE", help="Error absoluto medio."),
         })
-        st.caption("El sesgo y el MAE están en las unidades de cada variable: no son comparables entre filas; "
-                   "para comparar usar cobertura y ratio vs. ingenuo.")
+        st.caption("El sesgo y el MAE están en las unidades propias de cada variable (pp, pesos, millones de USD…), por eso no "
+                   "se pueden comparar entre filas.")
 
 # ---------------------------------------------------------------- evolucion
 with t_evo:
@@ -367,11 +398,24 @@ with t_evo:
     fig.update_layout(hovermode="x unified" if modo != "Por período objetivo" else "closest",
                       legend=dict(orientation="h", y=-0.2), height=520)
     st.plotly_chart(fig, width="stretch")
+    st.caption({
+        "Por período objetivo": "Cada punto es un relevamiento distinto que proyecta el **mismo** período; la línea negra punteada es lo que "
+                                "finalmente pasó y la banda celeste el rango p10–p90. Si la línea azul se acerca a la negra a medida que se acerca "
+                                "el período, el REM fue ajustando.",
+        "Trayectorias por relevamiento": "Cada línea de color es **un relevamiento** y muestra lo que proyectaba hacia adelante "
+                                         "(violeta: viejos; amarillo: recientes). La línea negra gruesa es lo que pasó: cuanto más lejos "
+                                         "queda una línea de color de la negra, mayor fue el error.",
+        "Horizonte fijo vs. real": "Cada punto azul es lo que el REM proyectaba **N meses antes** de cada período; la línea negra es lo que "
+                                   "pasó. La distancia vertical entre ambas es el error a ese horizonte; la banda muestra la incertidumbre "
+                                   "que declaraban los analistas.",
+        "Último relevamiento (fan chart)": "Lo que proyecta el relevamiento más reciente hacia adelante (rojo), con su rango p10–p90, "
+                                           "junto con el historial real (negro). No hay error para calcular todavía: es lo que se espera hoy.",
+    }[modo])
 
 # ---------------------------------------------------------------- error por horizonte
 with t_hor:
-    st.caption("error = real − mediana (>0: el REM subestimó; <0: sobreestimó). Cobertura nominal p10–p90 = 80%. "
-               "El rango de horizontes se elige en la barra lateral.")
+    st.caption("Error = real − proyectado (>0: el REM se quedó corto; <0: se pasó). El rango de horizontes se elige en la barra "
+               "lateral. Definiciones en el glosario de arriba.")
     if een.empty:
         st.info("Sin errores calculables.")
     else:
@@ -395,7 +439,10 @@ with t_hor:
                              xaxis_title="Horizonte (meses)", yaxis_title=unidad, height=420,
                              legend=dict(orientation="h", y=-0.25))
             st.plotly_chart(f1, width="stretch")
-            st.caption("El MAE ingenuo se calcula sobre las mismas observaciones en las que existe un último dato conocido.")
+            st.caption("**Barras naranjas (sesgo):** hacia arriba, el REM subestimó; hacia abajo, sobreestimó. **Línea azul:** cuánto se equivocó "
+                       "el REM (MAE). **Línea gris punteada:** cuánto se equivocaría alguien que solo repite el último dato conocido (MAE "
+                       "ingenuo). Si la azul está **por debajo** de la gris, el REM aporta información. Es normal que el error crezca con el "
+                       "horizonte. El MAE ingenuo se calcula solo donde existe un último dato conocido.")
 
             if g["cobertura"].notna().any():
                 f2 = go.Figure(go.Scatter(x=g["horizonte_meses"], y=g["cobertura"], mode="lines+markers"))
@@ -403,6 +450,8 @@ with t_hor:
                 f2.update_layout(title="Cobertura p10–p90 por horizonte", xaxis_title="Horizonte (meses)",
                                  yaxis=dict(range=[0, 1], tickformat=".0%"), height=330)
                 st.plotly_chart(f2, width="stretch")
+                st.caption("Porcentaje de veces que el real cayó dentro del rango p10–p90. Si el punto está **por debajo de la línea de 80%**, "
+                           "los analistas fueron demasiado confiados (el rango era muy angosto).")
 
             hh = een[een["horizonte_meses"].isin(g["horizonte_meses"])]
             f3 = go.Figure(go.Box(x=hh["horizonte_meses"], y=hh["error"], boxpoints=False, marker_color="#1f77b4",
@@ -412,6 +461,8 @@ with t_hor:
                              xaxis_title="Horizonte (meses)", yaxis_title=f"error ({unidad})", height=380,
                              showlegend=False)
             st.plotly_chart(f3, width="stretch")
+            st.caption("Cada caja contiene al 50% central de los errores de ese horizonte; la línea interna es la mediana y los bigotes "
+                       "muestran el resto (sin atípicos). **Cajas anchas:** errores muy dispersos. **Cajas alejadas de 0:** sesgo sistemático.")
 
             met = st.radio("Heatmap: año del relevamiento × horizonte", ["Sesgo", "MAE"], horizontal=True)
             colv = "error" if met == "Sesgo" else "abs_error"
@@ -423,14 +474,23 @@ with t_hor:
             f4.update_layout(title=f"{met} por año de relevamiento y horizonte", xaxis_title="Horizonte (meses)",
                              yaxis=dict(type="category", autorange="reversed"), height=420)
             st.plotly_chart(f4, width="stretch")
-            if met == "Sesgo":
-                st.caption("Rojo: el REM subestimó (real > mediana); azul: sobreestimó.")
+            st.caption("Cada celda promedia los errores de los relevamientos de ese año a ese horizonte. "
+                       + ("Rojo: el REM subestimó (real > proyectado); azul: sobreestimó; blanco: sin sesgo."
+                          if met == "Sesgo" else "Más oscuro = mayor error absoluto medio."))
 
             if variable in NIVELES:
                 st.caption("Para niveles, `error_rel_abs_pct` = |error| / real, promedio (%).")
             else:
                 g = g.drop(columns="error_rel_abs_pct")
-            st.dataframe(g.round(3), width="stretch", hide_index=True)
+            st.dataframe(g.round(3), width="stretch", hide_index=True, column_config={
+                "horizonte_meses": st.column_config.NumberColumn("horizonte (meses)"),
+                "sesgo": st.column_config.NumberColumn("sesgo", help="Error medio con signo (real − proyectado)."),
+                "MAE": st.column_config.NumberColumn("MAE REM", help="Error absoluto medio del REM."),
+                "MAE_ingenuo": st.column_config.NumberColumn("MAE ingenuo", help="Error absoluto medio de repetir el último dato conocido."),
+                "ratio": st.column_config.NumberColumn("REM ÷ ingenuo", help="Menor a 1: el REM se equivoca menos que el ingenuo."),
+                "cobertura": st.column_config.NumberColumn("cobertura p10–p90", format="%.2f", help="Fracción de veces que el real cayó en p10–p90 (ideal ~0,80)."),
+                "RMSE": st.column_config.NumberColumn("RMSE", help="Como el MAE pero penaliza más los errores grandes."),
+            })
             st.download_button("Descargar tabla (CSV)", g.to_csv(index=False).encode("utf-8"),
                                file_name=f"rem_error_horizonte_{variable}.csv", mime="text/csv")
 
@@ -454,6 +514,9 @@ with t_tie:
             f5.update_xaxes(dtick=1)
         add_hitos(f5, annual=annual_axis)
         st.plotly_chart(f5, width="stretch")
+        st.caption("Cada punto es el error de una proyección (real − proyectado), ubicado en el período que se quería predecir. "
+                   "**Sobre 0:** el REM subestimó; **bajo 0:** sobreestimó. El color indica con cuánta anticipación se proyectó: los errores "
+                   "más grandes suelen ser de los horizontes largos (amarillo), sobre todo en períodos de quiebre.")
 
         lo, hi = float(min(een["mediana"].min(), een["real"].min())), float(max(een["mediana"].max(), een["real"].max()))
         f6 = go.Figure()
@@ -470,9 +533,12 @@ with t_tie:
         f6.update_layout(title="Proyectado (mediana) vs. real", xaxis_title=f"proyectado ({unidad})",
                          yaxis_title=f"real ({unidad})", height=450)
         st.plotly_chart(f6, width="stretch")
-        st.caption("Sobre la diagonal: el REM subestimó; debajo: sobreestimó.")
+        st.caption("Cada punto compara lo proyectado (eje horizontal) con lo que pasó (eje vertical). Si el REM acertara siempre, todos "
+                   "estarían **sobre la diagonal**. Puntos **arriba** de la diagonal: el real fue mayor que lo proyectado (subestimó); "
+                   "**abajo**: sobreestimó.")
 
         st.subheader("10 mayores errores absolutos")
+        st.caption("Las proyecciones donde el REM más se equivocó (en unidades de la variable).")
         top = een.sort_values("abs_error", ascending=False).head(10).copy()
         top["período objetivo"] = top["fecha_objetivo"].map(lambda t: fmt_obj(t, tipo))
         cols_top = ["relevamiento", "período objetivo", "horizonte_meses", "mediana", "real", "error"]
